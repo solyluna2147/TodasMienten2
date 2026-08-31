@@ -58,14 +58,11 @@ function loadConfig() {
 let config = loadConfig();
 
 // ============================================================
-// CONTADOR FIJADO EN 51.967 HORAS (51967 * 3600 segundos)
+// CONTADOR NORMAL (INICIA EN 0:00)
 // ============================================================
-const FIXED_HOURS = 51967;
-const FIXED_ACCUMULATED_SECONDS = FIXED_HOURS * 3600; // 187,081,200 segundos
-
 function loadSavedProgress() {
     let lastIndex = 0;
-    let accumulatedSeconds = FIXED_ACCUMULATED_SECONDS;
+    let accumulatedSeconds = 0;
     try {
         if (fs.existsSync(SAVE_FILE)) {
             const data = JSON.parse(fs.readFileSync(SAVE_FILE, 'utf-8'));
@@ -76,10 +73,6 @@ function loadSavedProgress() {
         }
     } catch (err) {
         console.warn('⚠️ No se pudo leer save_progress.json, usando valores iniciales.');
-    }
-    // Si no tiene el valor de 999999 horas o es inferior al fijado, aseguramos el fijado
-    if (!accumulatedSeconds || accumulatedSeconds < FIXED_ACCUMULATED_SECONDS) {
-        accumulatedSeconds = FIXED_ACCUMULATED_SECONDS;
     }
     return { lastIndex, accumulatedSeconds };
 }
@@ -321,7 +314,7 @@ async function startPresenceLoop() {
 client.on('ready', async () => {
     console.log(`\n==================================================`);
     console.log(`🌴 CONECTADO A DISCORD COMO: ${client.user.tag}`);
-    console.log(`⏱️  Contador fijado: ${FIXED_HOURS.toLocaleString()} horas (${(initialAccumulated / 3600).toFixed(2)}h acumuladas)`);
+    console.log(`⏱️  Contador iniciado normalmente desde 0:00 (${(initialAccumulated / 3600).toFixed(2)}h acumuladas)`);
     console.log(`==================================================\n`);
 
     await registerExternalAssets();
