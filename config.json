@@ -1,0 +1,53 @@
+{
+    "client_id": "1544000490713518100",
+
+    "name": "¡Ⲧⲟ𝖽α⳽  Ⲙıⲉⲛⲧⲉⲛ!",
+
+    "loading": {
+        "enabled": true,
+        "text": "Cargando mentiras...",
+        "start": 0,
+        "end": 100,
+        "step": 10,
+        "interval": 3
+    },
+
+    "final_animation": {
+        "enabled": true,
+
+        "texts": [
+            {
+                "text": "⚠️ ¡Todas sois iguales! ⚠️",
+                "duration": 3
+            },
+            {
+                "text": "💔 ¡Qué lástima dais! 💔",
+                "duration": 3
+            },
+            {
+                "text": "⚠️ ¡Todas son mentirosas! ⚠️",
+                "duration": 3
+            },
+            {
+                "text": "💔 ¡Qué lástima dais, de verdad! 💔",
+                "duration": 3
+            }
+        ]
+    },
+
+    "state": "",
+
+    "large_image": "https://cdn.discordapp.com/avatars/1308814761269395527/a_fe716a1a5c62b65cd0f6024b2911b061.webp?size=1024&animated=true",
+
+    "large_text": "𝑻𝒐𝒅𝒂𝒔 𝑴𝒊𝒆𝒏𝒕𝒆𝒏, 𝒚 𝒍𝒐 𝒔𝒂𝒃𝒆𝒔",
+
+    "small_image": "https://i.ibb.co/Mm7y46n/36m5Vn-E.gif",
+
+    "small_text": "",
+
+    "sync": {
+        "confirmation_delay": 0.75,
+        "retry_delay": 1.0,
+        "max_retries": 10
+    }
+}
