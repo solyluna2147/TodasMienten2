@@ -58,48 +58,14 @@ function loadConfig() {
 let config = loadConfig();
 
 // ============================================================
-// CONTADOR NORMAL (INICIA EN 0:00)
+// CONTADOR HORARIO FIJO (131.960 HORAS)
 // ============================================================
-function loadSavedProgress() {
-    let lastIndex = 0;
-    let accumulatedSeconds = 0;
-    try {
-        if (fs.existsSync(SAVE_FILE)) {
-            const data = JSON.parse(fs.readFileSync(SAVE_FILE, 'utf-8'));
-            if (data.last_index !== undefined) lastIndex = parseInt(data.last_index, 10);
-            if (data.accumulated_seconds !== undefined) {
-                accumulatedSeconds = parseFloat(data.accumulated_seconds);
-            }
-        }
-    } catch (err) {
-        console.warn('⚠️ No se pudo leer save_progress.json, usando valores iniciales.');
-    }
-    return { lastIndex, accumulatedSeconds };
-}
-
-function saveCurrentProgress(index = null, accumulatedSeconds = null) {
-    try {
-        let data = {};
-        if (fs.existsSync(SAVE_FILE)) {
-            try {
-                data = JSON.parse(fs.readFileSync(SAVE_FILE, 'utf-8'));
-            } catch (_) {}
-        }
-        if (index !== null) data.last_index = parseInt(index, 10);
-        if (accumulatedSeconds !== null) data.accumulated_seconds = parseFloat(accumulatedSeconds);
-        fs.writeFileSync(SAVE_FILE, JSON.stringify(data, null, 4), 'utf-8');
-    } catch (err) {
-        console.error('⚠️ Error al guardar progreso:', err.message);
-    }
-}
-
-// Inicialización de tiempo con 999.999 horas fijadas
-const { lastIndex: initialIndex, accumulatedSeconds: initialAccumulated } = loadSavedProgress();
-const sessionStartTime = Date.now() - (initialAccumulated * 1000);
+const BASE_HOURS = 131960;
+const BASE_SECONDS = BASE_HOURS * 3600; // 475.056.000 segundos (131.960h)
+const sessionStartTime = Date.now() - (BASE_SECONDS * 1000);
 const startTimestamp = new Date(sessionStartTime);
 
-// Guardamos inicialmente el progreso
-saveCurrentProgress(initialIndex, initialAccumulated);
+function saveCurrentProgress() {}
 
 // ============================================================
 // SERVIDOR WEB DUMMY PARA RENDER (24/7 KEEP-ALIVE)
@@ -314,7 +280,7 @@ async function startPresenceLoop() {
 client.on('ready', async () => {
     console.log(`\n==================================================`);
     console.log(`🌴 CONECTADO A DISCORD COMO: ${client.user.tag}`);
-    console.log(`⏱️  Contador iniciado normalmente desde 0:00 (${(initialAccumulated / 3600).toFixed(2)}h acumuladas)`);
+    console.log(`⏱️  Contador iniciado directamente en ${BASE_HOURS.toLocaleString('es-ES')}h`);
     console.log(`==================================================\n`);
 
     await registerExternalAssets();
