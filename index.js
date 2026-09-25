@@ -1,3 +1,11 @@
+// Polyfill para ReadableStream en entornos de Node antiguos
+try {
+    if (typeof globalThis.ReadableStream === 'undefined') {
+        const { ReadableStream } = require('stream/web');
+        if (ReadableStream) globalThis.ReadableStream = ReadableStream;
+    }
+} catch (_) {}
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
